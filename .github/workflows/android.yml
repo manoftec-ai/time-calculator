@@ -19,14 +19,18 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Download Gradle
+      - name: Download and install Gradle
         run: |
           curl -fsSL -o /tmp/gradle.zip "https://services.gradle.org/distributions/gradle-8.2.1-bin.zip"
-          unzip -q /tmp/gradle.zip -B -d $RUNNER_HOME
-          echo "$RUNNER_HOME/gradle-8.2.1/bin" >> $GITHUB_PATH
+          unzip -q /tmp/gradle.zip -d /opt/
+          echo "/opt/gradle-8.2.1/bin" >> $GITHUB_PATH
 
-      - name: Generate wrapper and build APK
-        run: gradle wrapper --gradle-version 8.2.1 && ./gradlew assembleDebug --no-daemon --stacktrace
+      - name: Generate Gradle wrapper
+        run: |
+          gradle wrapper --gradle-version 8.2.1 --distribution-type all
+
+      - name: Build debug APK
+        run: ./gradlew assembleDebug --no-daemon --stacktrace
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
@@ -34,7 +38,7 @@ jobs:
           name: time-calculator-apk
           path: app/build/outputs/apk/debug/app-debug.apk
 
-      - name: Build release
+      - name: Build release AAB
         run: ./gradlew bundleRelease --no-daemon
 
       - name: Upload AAB
