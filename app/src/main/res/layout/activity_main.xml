@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurface"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Mode Toggle -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:text="Calculator"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:id="@+id/modeToggleText"
+            android:layout_gravity="center_vertical" />
+
+        <!-- Input Field -->
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:hint="e.g. 2y 3m 9d + 5m 3d"
+            android:inputType="text"
+            android:padding="16dp"
+            android:textSize="18sp"
+            android:id="@+id/inputField"
+            android:backgroundTint="?attr/colorPrimary" />
+
+        <!-- Operation Buttons - Replaced by converter UI in converter mode -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:id="@+id/operationButtons"
+            android:baselineAligned="false">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:text="+"
+                android:id="@+id/btnAdd" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:text="-"
+                android:id="@+id/btnSubtract" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:text="×"
+                android:id="@+id/btnMultiply" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:text="÷"
+                android:id="@+id/btnDivide" />
+        </LinearLayout>
+
+        <!-- Calculate/Convert Button -->
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="Calculate"
+            android:textSize="18sp"
+            android:id="@+id/btnCalculate" />
+
+        <!-- Result Display -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorSurface"
+            android:padding="16dp"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:id="@+id/resultDisplay"
+            android:backgroundTint="?attr/colorPrimaryContainer"
+            android:layout_marginBottom="12dp"
+            tools:text="= 2y 8m 12d" />
+
+        <!-- History Section -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="History"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:id="@+id/historyHeader" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/historyContainer"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No calculations yet"
+                android:textSize="14sp"
+                android:padding="8dp"
+                android:textColor="?attr/colorOnSurface"
+                android:alpha="0.5" />
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

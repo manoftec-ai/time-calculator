@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Time Calculator</string>
+    <string name="hint_input">e.g. 2y 3m 9d + 5m 3d</string>
+    <string name="hint_convert_from">From</string>
+    <string name="hint_convert_to">To</string>
+    <string name="error_invalid_input">Invalid time format</string>
+    <string name="error_conversion_failed">Conversion failed</string>
+    <string name="result_text">= %1$s</string>
+    <string name="mode_calculator">Calculator</string>
+    <string name="mode_converter">Converter</string>
+    <string name="operation_add">+</string>
+    <string name="operation_subtract">-</string>
+    <string name="operation_multiply">x</string>
+    <string name="operation_divide">÷</string>
+    <string name="btn_calculate">Calculate</string>
+    <string name="btn_convert">Convert</string>
+    <string name="swipe_to_switch_modes">Swipe left/right to switch modes</string>
+</resources>
