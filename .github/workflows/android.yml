@@ -23,14 +23,23 @@ jobs:
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
+        with:
+          api-level: 34
+          ndk: "25.2.9519653"
+          ndk-type: "source"
 
-      - name: Grant executable permissions
+      - name: Generate Gradle wrapper
+        run: |
+          curl -s "https://services.gradle.org/distributions/gradle-8.2.1-bin.zip" -o /tmp/gradle.zip
+          unzip -q /tmp/gradle.zip -d /opt/
+          ln -sf /opt/gradle-8.2.1/bin/gradle /usr/local/bin/gradle
+          gradle wrapper --gradle-version 8.2.1 --distribution-type all
+
+      - name: Make Gradle executable
         run: chmod +x ./gradlew
 
       - name: Build debug APK
-        run: |
-          ./gradlew wrapper --gradle-version 8.2.1
-          ./gradlew assembleDebug --no-daemon
+        run: ./gradlew assembleDebug --no-daemon
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
