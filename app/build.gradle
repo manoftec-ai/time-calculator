@@ -28,5 +28,6 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.7.0'
+    // No external dependencies - pure Android/Kotlin
+    // Using android.app.AppCompatActivity alternative for minSdk 21+ compatibility
 }
