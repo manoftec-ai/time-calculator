@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.TimeCalc" parent="android:Theme.Material3.DayNight.NoActionBar">
-        <item name="android:statusBarColor">?attr/colorPrimaryContainer</item>
-        <item name="android:navigationBarColor">?attr/colorSurface</item>
+    <style name="Theme.TimeCalc" parent="android:Theme.Material.NoActionBar">
+        <item name="android:statusBarColor">@color/md_theme_primary</item>
+        <item name="android:colorBackground">@color/md_theme_surface</item>
+        <item name="android:textColorPrimary">@color/md_theme_onSurface</item>
+        <item name="android:colorAccent">@color/md_theme_primary</item>
     </style>
 </resources>

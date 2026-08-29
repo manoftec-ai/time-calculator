@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorSurface"
+    android:background="@color/md_theme_surface"
     android:padding="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
 
         <!-- Mode Toggle -->
         <TextView
@@ -19,8 +19,7 @@
             android:text="Calculator"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:id="@+id/modeToggleText"
-            android:layout_gravity="center_vertical" />
+            android:id="@+id/modeToggleText" />
 
         <!-- Input Field -->
         <EditText
@@ -32,17 +31,16 @@
             android:padding="16dp"
             android:textSize="18sp"
             android:id="@+id/inputField"
-            android:backgroundTint="?attr/colorPrimary" />
+            android:backgroundTint="@color/md_theme_primary" />
 
-        <!-- Operation Buttons - Replaced by converter UI in converter mode -->
+        <!-- Operation Buttons -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:orientation="horizontal"
             android:gravity="center"
-            android:id="@+id/operationButtons"
-            android:baselineAligned="false">
+            android:id="@+id/operationButtons">
 
             <Button
                 android:layout_width="0dp"
@@ -77,7 +75,7 @@
                 android:id="@+id/btnDivide" />
         </LinearLayout>
 
-        <!-- Calculate/Convert Button -->
+        <!-- Calculate Button -->
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -90,14 +88,14 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorSurface"
             android:padding="16dp"
             android:textSize="24sp"
             android:textStyle="bold"
             android:id="@+id/resultDisplay"
-            android:backgroundTint="?attr/colorPrimaryContainer"
+            android:background="@color/md_theme_primary"
+            android:textColor="@color/md_theme_onPrimary"
             android:layout_marginBottom="12dp"
-            tools:text="= 2y 8m 12d" />
+            android:text="= 0" />
 
         <!-- History Section -->
         <TextView
@@ -115,16 +113,7 @@
             android:orientation="vertical"
             android:id="@+id/historyContainer"
             android:layout_marginBottom="12dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="No calculations yet"
-                android:textSize="14sp"
-                android:padding="8dp"
-                android:textColor="?attr/colorOnSurface"
-                android:alpha="0.5" />
-
         </LinearLayout>
+
     </LinearLayout>
 </ScrollView>
