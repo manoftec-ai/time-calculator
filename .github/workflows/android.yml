@@ -3,8 +3,6 @@ name: Android Build
 on:
   push:
     branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
   workflow_dispatch:
 
 jobs:
@@ -21,37 +19,26 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
-        with:
-          api-level: 34
-          ndk: "25.2.9519653"
-          ndk-type: "source"
-
-      - name: Generate Gradle wrapper
+      - name: Download Gradle
         run: |
-          curl -s "https://services.gradle.org/distributions/gradle-8.2.1-bin.zip" -o /tmp/gradle.zip
-          unzip -q /tmp/gradle.zip -d /opt/
-          ln -sf /opt/gradle-8.2.1/bin/gradle /usr/local/bin/gradle
-          gradle wrapper --gradle-version 8.2.1 --distribution-type all
+          curl -fsSL -o /tmp/gradle.zip "https://services.gradle.org/distributions/gradle-8.2.1-bin.zip"
+          unzip -q /tmp/gradle.zip -B -d $RUNNER_HOME
+          echo "$RUNNER_HOME/gradle-8.2.1/bin" >> $GITHUB_PATH
 
-      - name: Make Gradle executable
-        run: chmod +x ./gradlew
+      - name: Generate wrapper and build APK
+        run: gradle wrapper --gradle-version 8.2.1 && ./gradlew assembleDebug --no-daemon --stacktrace
 
-      - name: Build debug APK
-        run: ./gradlew assembleDebug --no-daemon
-
-      - name: Upload APK artifact
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: time-calculator-debug
+          name: time-calculator-apk
           path: app/build/outputs/apk/debug/app-debug.apk
 
-      - name: Build release bundle
+      - name: Build release
         run: ./gradlew bundleRelease --no-daemon
 
-      - name: Upload App Bundle
+      - name: Upload AAB
         uses: actions/upload-artifact@v4
         with:
-          name: time-calculator-release
+          name: time-calculator-aab
           path: app/build/outputs/bundle/release/app-release.aab
