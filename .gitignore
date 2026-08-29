@@ -1,0 +1,32 @@
+# Gradle
+.gradle/
+build/
+
+# Local configuration file (sdk path, etc)
+/local.properties
+
+# Android Specific
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aab
+*.ap_
+*.obb
+
+# Keystore files
+*.jks
+*.keystore
+
+# Google Services (e.g. Google Places, Firebase)
+google-services.json
+
+# Fabric
+fabric.properties
+
+# Android Studio
+*.iml
+.idea/
+
+# Built application outputs
+*.dex

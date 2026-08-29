@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import android.widget.*
-import android.app.Activity
+import androidx.appcompat.app.AppCompatActivity
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class MainActivity : Activity() {
+class MainActivity : AppCompatActivity() {
     private lateinit var inputField: EditText
     private lateinit var resultDisplay: TextView
     private lateinit var modeToggle: TextView

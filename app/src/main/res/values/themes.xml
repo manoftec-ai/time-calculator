@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Base application theme. Uses simple Material theme for max compatibility -->
-    <style name="Theme.TimeCalc" parent="android:Theme.Material.Light">
+    <style name="Theme.TimeCalc" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:statusBarColor">@color/md_theme_primary</item>
         <item name="android:colorBackground">@color/md_theme_surface</item>
         <item name="android:textColorPrimary">@color/md_theme_onSurface</item>

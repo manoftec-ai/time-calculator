@@ -5,6 +5,7 @@ plugins {
 android {
     namespace 'com.example.timecalc'
     compileSdk 34
+    buildToolsVersion "35.0.0"
 
     defaultConfig {
         applicationId "com.example.timecalc"
@@ -28,6 +29,8 @@ android {
 }
 
 dependencies {
-    // No external dependencies - pure Android/Kotlin
-    // Using android.app.AppCompatActivity alternative for minSdk 21+ compatibility
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.8.22'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22'
 }
