@@ -14,13 +14,13 @@ class CalculatorBrain {
     fun parseTimeExpression(expr: String): TimeComponents {
         val components = parseTimeComponents(expr)
         return TimeComponents(
-            years = components['y'] ?: 0.0,
-            months = components['mo'] ?: 0.0,
-            weeks = components['w'] ?: 0.0,
-            days = components['d'] ?: 0.0,
-            hours = components['h'] ?: 0.0,
-            minutes = components['m'] ?: 0.0,
-            seconds = components['s'] ?: 0.0
+            years = components["y"] ?: 0.0,
+            months = components["mo"] ?: 0.0,
+            weeks = components["w"] ?: 0.0,
+            days = components["d"] ?: 0.0,
+            hours = components["h"] ?: 0.0,
+            minutes = components["m"] ?: 0.0,
+            seconds = components["s"] ?: 0.0
         )
     }
 
@@ -64,9 +64,9 @@ class CalculatorBrain {
         return TimeCalculator.formatFromSeconds(resultSeconds, determineUnits(timeExpr))
     }
 
-    fun determineUnits(expr: String): List<Char> {
-        val unitOrder = listOf('y', 'mo', 'w', 'd', 'h', 'm', 's')
-        val found = mutableSetOf<Char>()
+    fun determineUnits(expr: String): List<String> {
+        val unitOrder = listOf("y", "mo", "w", "d", "h", "m", "s")
+        val found = mutableSetOf<String>()
 
         val pattern = Pattern.compile("[\\d.]+\\s*([a-zA-Z]+)")
         val matcher = pattern.matcher(expr)
@@ -74,21 +74,21 @@ class CalculatorBrain {
         while (matcher.find()) {
             val unitStr = matcher.group(1).lowercase()
             when {
-                unitStr.startsWith("year") || unitStr == "y" -> found.add('y')
-                unitStr.startsWith("month") || unitStr == "mo" -> found.add('mo')
-                unitStr.startsWith("week") || unitStr == "w" -> found.add('w')
-                unitStr.startsWith("day") || unitStr == "d" -> found.add('d')
-                unitStr.startsWith("hour") || unitStr == "h" -> found.add('h')
-                unitStr.startsWith("min") || unitStr == "m" -> found.add('m')
-                unitStr.startsWith("sec") || unitStr == "s" -> found.add('s')
+                unitStr.startsWith("year") || unitStr == "y" -> found.add("y")
+                unitStr.startsWith("month") || unitStr == "mo" -> found.add("mo")
+                unitStr.startsWith("week") || unitStr == "w" -> found.add("w")
+                unitStr.startsWith("day") || unitStr == "d" -> found.add("d")
+                unitStr.startsWith("hour") || unitStr == "h" -> found.add("h")
+                unitStr.startsWith("min") || unitStr == "m" -> found.add("m")
+                unitStr.startsWith("sec") || unitStr == "s" -> found.add("s")
             }
         }
 
         return unitOrder.filter { found.contains(it) }
     }
 
-    private fun parseTimeComponents(expr: String): Map<Char, Double> {
-        val result = mutableMapOf<Char, Double>()
+    private fun parseTimeComponents(expr: String): Map<String, Double> {
+        val result = mutableMapOf<String, Double>()
         val pattern = Pattern.compile("([\\d.]+)\\s*([a-zA-Z]+)")
         val matcher = pattern.matcher(expr)
 
@@ -97,13 +97,13 @@ class CalculatorBrain {
             val unit = matcher.group(2).lowercase()
 
             val unitKey = when {
-                unit.startsWith("year") || unit == "y" -> 'y'
-                unit.startsWith("month") || unit == "mo" -> 'mo'
-                unit.startsWith("week") || unit == "w" -> 'w'
-                unit.startsWith("day") || unit == "d" -> 'd'
-                unit.startsWith("hour") || unit == "h" -> 'h'
-                unit.startsWith("min") || unit == "m" -> 'm'
-                unit.startsWith("sec") || unit == "s" -> 's'
+                unit.startsWith("year") || unit == "y" -> "y"
+                unit.startsWith("month") || unit == "mo" -> "mo"
+                unit.startsWith("week") || unit == "w" -> "w"
+                unit.startsWith("day") || unit == "d" -> "d"
+                unit.startsWith("hour") || unit == "h" -> "h"
+                unit.startsWith("min") || unit == "m" -> "m"
+                unit.startsWith("sec") || unit == "s" -> "s"
                 else -> throw IllegalArgumentException("Unknown unit: $unit")
             }
 

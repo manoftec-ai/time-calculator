@@ -176,18 +176,18 @@ class MainActivity : AppCompatActivity() {
         val fromTime = calculatorBrain.parseTimeExpression(fromValue)
         val baseSeconds = fromTime.toSeconds()
         
-        return TimeCalculator.formatFromSeconds(baseSeconds, getTimeUnitChars(targetUnit))
+        return TimeCalculator.formatFromSeconds(baseSeconds, getTimeUnitStrings(targetUnit))
     }
 
-    private fun getTimeUnitChars(target: String): List<Char> {
+    private fun getTimeUnitStrings(target: String): List<String> {
         return when {
-            target.contains("year", ignoreCase = true) -> listOf('y')
-            target.contains("month", ignoreCase = true) -> listOf('mo')
-            target.contains("week", ignoreCase = true) -> listOf('w')
-            target.contains("day", ignoreCase = true) -> listOf('d')
-            target.contains("hour", ignoreCase = true) -> listOf('h')
-            target.contains("min", ignoreCase = true) -> listOf('m')
-            target.contains("sec", ignoreCase = true) -> listOf('s')
+            target.contains("year", ignoreCase = true) -> listOf("y")
+            target.contains("month", ignoreCase = true) -> listOf("mo")
+            target.contains("week", ignoreCase = true) -> listOf("w")
+            target.contains("day", ignoreCase = true) -> listOf("d")
+            target.contains("hour", ignoreCase = true) -> listOf("h")
+            target.contains("min", ignoreCase = true) -> listOf("m")
+            target.contains("sec", ignoreCase = true) -> listOf("s")
             else -> throw IllegalArgumentException("Unknown target unit: $target")
         }
     }

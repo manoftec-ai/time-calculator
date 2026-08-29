@@ -9,12 +9,12 @@ object TimeCalculator {
     private const val MONTH: Double = 30.44 * DAY  // Average month length
     private const val YEAR: Double = 365.25 * DAY  // Average year length
 
-    fun formatFromSeconds(totalSeconds: Double, unitChars: List<Char>): String {
+    fun formatFromSeconds(totalSeconds: Double, unitChars: List<String>): String {
         if (unitChars.isEmpty()) return "${totalSeconds.format()}s"
-        
-        val unitOrder = listOf('y', 'mo', 'w', 'd', 'h', 'm', 's')
+
+        val unitOrder = listOf("y", "mo", "w", "d", "h", "m", "s")
         val filteredUnits = unitOrder.filter { unitChars.contains(it) }
-        
+
         if (filteredUnits.isEmpty()) return "${totalSeconds.format()}s"
 
         val values = mutableListOf<String>()
@@ -22,49 +22,49 @@ object TimeCalculator {
 
         filteredUnits.forEach { unit ->
             when (unit) {
-                'y' -> {
+                "y" -> {
                     val years = remaining.div(YEAR).toInt()
                     if (years > 0 || values.isNotEmpty()) {
                         values.add("${years}y")
                         remaining -= years * YEAR
                     }
                 }
-                'mo' -> {
+                "mo" -> {
                     val months = remaining.div(MONTH).toInt()
                     if (months > 0 || values.isNotEmpty()) {
                         values.add("${months}mo")
                         remaining -= months * MONTH
                     }
                 }
-                'w' -> {
+                "w" -> {
                     val weeks = remaining.div(WEEK).toInt()
                     if (weeks > 0 || values.isNotEmpty()) {
                         values.add("${weeks}w")
                         remaining -= weeks * WEEK
                     }
                 }
-                'd' -> {
+                "d" -> {
                     val days = remaining.div(DAY).toInt()
                     if (days > 0 || values.isNotEmpty()) {
                         values.add("${days}d")
                         remaining -= days * DAY
                     }
                 }
-                'h' -> {
+                "h" -> {
                     val hours = remaining.div(HOUR).toInt()
                     if (hours > 0 || values.isNotEmpty()) {
                         values.add("${hours}h")
                         remaining -= hours * HOUR
                     }
                 }
-                'm' -> {
+                "m" -> {
                     val minutes = remaining.div(MINUTE).toInt()
                     if (minutes > 0 || values.isNotEmpty()) {
                         values.add("${minutes}m")
                         remaining -= minutes * MINUTE
                     }
                 }
-                's' -> {
+                "s" -> {
                     val seconds = remaining.toInt()
                     values.add("${seconds}s")
                 }
@@ -127,13 +127,13 @@ data class TimeComponents(
 
     fun multiply(factor: Double): String {
         val totalSec = toSeconds() * factor
-        return TimeCalculator.formatFromSeconds(totalSec, listOf('y', 'mo', 'w', 'd', 'h', 'm', 's'))
+        return TimeCalculator.formatFromSeconds(totalSec, listOf("y", "mo", "w", "d", "h", "m", "s"))
     }
 
     fun divide(divisor: Double): String {
         if (divisor == 0.0) throw ArithmeticException("Division by zero")
         val totalSec = toSeconds() / divisor
-        return TimeCalculator.formatFromSeconds(totalSec, listOf('y', 'mo', 'w', 'd', 'h', 'm', 's'))
+        return TimeCalculator.formatFromSeconds(totalSec, listOf("y", "mo", "w", "d", "h", "m", "s"))
     }
 }
 
