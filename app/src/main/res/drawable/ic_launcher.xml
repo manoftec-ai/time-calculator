@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="48dp"
-    android:height="48dp"
-    android:viewportWidth="48"
-    android:viewportHeight="48">
-    <path
-        android:fillColor="@color/md_theme_primary"
-        android:pathData="M24,4 L28,12 L36,12 L30,16 L32,24 L24,20 L16,24 L18,16 L12,12 L20,12 Z" />
-</vector>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/md_theme_primary"/>
+    <item android:width="48dp" android:height="48dp" android:gravity="center">
+        <bitmap android:src="@drawable/ic_launcher_foreground" android:gravity="center"/>
+    </item>
+</layer-list>
