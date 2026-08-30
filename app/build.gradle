@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
 }
 
 android {
@@ -29,8 +30,4 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.8.22'
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22'
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22'
 }

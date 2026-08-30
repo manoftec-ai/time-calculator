@@ -12,7 +12,7 @@
     <string name="operation_add">+</string>
     <string name="operation_subtract">-</string>
     <string name="operation_multiply">x</string>
-    <string name="operation_divide">÷</string>
+    <string name="operation_divide">/</string>
     <string name="btn_calculate">Calculate</string>
     <string name="btn_convert">Convert</string>
     <string name="swipe_to_switch_modes">Swipe left/right to switch modes</string>

@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Activity
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : Activity() {
     private lateinit var inputField: EditText
     private lateinit var resultDisplay: TextView
     private lateinit var modeToggle: TextView
@@ -21,6 +21,8 @@ class MainActivity : AppCompatActivity() {
     private var isCalculatorMode = true
     private val historyList = ArrayList<String>()
     private val timeUnits = listOf("Seconds", "Minutes", "Hours", "Days", "Weeks", "Months", "Years")
+    private var fromSpinner: Spinner? = null
+    private var toSpinner: Spinner? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,6 +73,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupCalculatorMode() {
+        // Remove converter panel if present (keep the 4 operation buttons)
+        while (operationButtons.childCount > 4) {
+            operationButtons.removeViewAt(operationButtons.childCount - 1)
+        }
+        fromSpinner = null
+        toSpinner = null
         // Show operation buttons
         findViewById<Button>(R.id.btnAdd).visibility = View.VISIBLE
         findViewById<Button>(R.id.btnSubtract).visibility = View.VISIBLE
@@ -88,17 +96,16 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btnMultiply).visibility = View.GONE
         findViewById<Button>(R.id.btnDivide).visibility = View.GONE
         btnCalculate.text = "Convert"
-        inputField.hint = "e.g. 2.5 days to hours"
+        inputField.hint = "e.g. 2.5  (From/To set above)"
         historyContainer.visibility = View.GONE
-        
-        // Create converter UI inline
-        operationButtons.removeAllViews()
+
+        // Add converter UI alongside existing buttons (buttons are GONE so they stay attached)
         createConverterInputs()
     }
 
     private fun createConverterInputs() {
         // Create From/To unit selectors
-        val fromSpinner = Spinner(this).apply {
+        val from = Spinner(this).apply {
             adapter = ArrayAdapter(
                 this@MainActivity,
                 android.R.layout.simple_spinner_item,
@@ -108,8 +115,9 @@ class MainActivity : AppCompatActivity() {
                 this.adapter = adapter
             }
         }
-        
-        val toSpinner = Spinner(this).apply {
+        fromSpinner = from
+
+        val to = Spinner(this).apply {
             adapter = ArrayAdapter(
                 this@MainActivity,
                 android.R.layout.simple_spinner_item,
@@ -119,11 +127,12 @@ class MainActivity : AppCompatActivity() {
                 this.adapter = adapter
             }
         }
-        
+        toSpinner = to
+
         val converterPanel = LinearLayout(this).apply {
             orientation = LinearLayout.HORIZONTAL
             setPadding(0, 16, 0, 16)
-            addView(fromSpinner, LinearLayout.LayoutParams(
+            addView(from, LinearLayout.LayoutParams(
                 0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f
             ))
             val arrow = TextView(this@MainActivity).apply {
@@ -133,12 +142,12 @@ class MainActivity : AppCompatActivity() {
             addView(arrow, LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT
             ))
-            addView(toSpinner, LinearLayout.LayoutParams(
+            addView(to, LinearLayout.LayoutParams(
                 0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f
             ))
         }
         
-        operationButtons.addView(converterPanel)
+        operationButtons.addView(converterPanel, operationButtons.childCount)
     }
 
     private fun calculate() {
@@ -156,7 +165,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             resultDisplay.text = "= $result"
-            addToHistory(input, result)
+            if (isCalculatorMode) addToHistory(input, result)
         } catch (e: Exception) {
             resultDisplay.text = "= Error: ${e.message}"
             Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_LONG).show()
@@ -164,7 +173,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun parseConverterInput(input: String): String {
-        // Parse format like: "2.5 days to hours" or "2y 3m to days"
+        // If both spinners are set, use them directly and treat the input as a number.
+        val from = fromSpinner?.selectedItem?.toString()
+        val to = toSpinner?.selectedItem?.toString()
+        if (from != null && to != null && !input.contains(" to ", ignoreCase = true)) {
+            val value = input.replace(",", "").trim().toDoubleOrNull()
+                ?: throw IllegalArgumentException("Enter a number to convert")
+            val result = TimeCalculator.convert(value, from, to)
+            return "${result.format()} $to"
+        }
+
+        // Fallback: parse format like "2.5 days to hours" or "2y 3m to days"
         val parts = input.split(" to ", ignoreCase = true)
         if (parts.size != 2) {
             throw IllegalArgumentException("Use format: 'value unit to target_unit'")
